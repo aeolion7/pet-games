@@ -1,0 +1,23 @@
+{
+  "name": "pet-games",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aeolion7/pet-games.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aeolion7/pet-games/issues"
+  },
+  "homepage": "https://github.com/aeolion7/pet-games#readme",
+  "devDependencies": {
+    "electron": "^32.0.2"
+  }
+}
