@@ -1,9 +1,11 @@
 <script setup>
 import GameBoard from './components/GameBoard.vue';
+import PlayerHand from './components/PlayerHand.vue';
 </script>
 
 <template>
   <GameBoard />
+  <PlayerHand />
 </template>
 
 <style>
