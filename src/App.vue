@@ -1,18 +1,10 @@
-<template>
-  <p>placeholder p tag</p>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-</template>
-
-<script>
-// import HelloWorld from './components/HelloWorld.vue';
-
-export default {
-  name: 'App',
-  // components: {
-  //   HelloWorld,
-  // },
-};
+<script setup>
+import GameBoard from './components/GameBoard.vue';
 </script>
+
+<template>
+  <GameBoard />
+</template>
 
 <style>
 #app {
