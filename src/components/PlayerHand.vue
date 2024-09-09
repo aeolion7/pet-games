@@ -6,6 +6,8 @@ const numCards = ref(5);
 <template>
   <div id="player-hand">
     <p>Player Hand placeholder</p>
+    <button @click="numCards--">Discard</button>
+    <button @click="numCards++">Draw</button>
     <p>The player's hand contains {{ numCards }} cards.</p>
   </div>
 </template>
@@ -16,5 +18,11 @@ const numCards = ref(5);
   text-align: center;
   width: inherit;
   bottom: 10px;
+}
+
+button {
+  border: 2px solid #fff;
+  margin: 5px;
+  padding: 5px;
 }
 </style>
