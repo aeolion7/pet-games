@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- [Create game container component](https://trello.com/c/WglhKNeV/8-create-game-container-component)
+
 ## 0.2.0
 
 - [Vue application setup](https://trello.com/c/UphIbMq8/3-vue-setup)
