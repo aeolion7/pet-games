@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.6
+- [Create card component](https://trello.com/c/KGrIzFcT/14-create-card-component)
+
 ## 0.0.5
 - [Create player hand component](https://trello.com/c/kUuXjTpQ/10-create-player-hand-component)
 
