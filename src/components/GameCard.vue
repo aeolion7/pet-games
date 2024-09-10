@@ -4,6 +4,10 @@ const props = defineProps({
     default: "Bananakeet",
     type: String
   },
+  toolName: {
+    default: "RockCandy",
+    type: String
+  },
   cardType: {
     type: String,
     required: true
@@ -14,7 +18,11 @@ function getCreatureImageUrl(petName) {
   return require('../assets/cards/creatures/' + petName + '.jpg');
 }
 
-const imgUrl = props.cardType === "creature" ? getCreatureImageUrl(props.petName) : "TODO: equipment type logic here";
+function getEquipmentImageUrl(toolName) {
+  return require('../assets/cards/equipment/' + toolName + '.jpg');
+}
+
+const imgUrl = props.cardType === "creature" ? getCreatureImageUrl(props.petName) : getEquipmentImageUrl(props.toolName);
 </script>
 
 <template>
