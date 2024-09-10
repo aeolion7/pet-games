@@ -16,8 +16,6 @@ const playerHand = ref([
   { petName: "TurtleBunny", type: "creature", id: 5 }
 ]);
 
-// TODO: these functions could be cleaned up and combined
-
 function drawCreatureCard() {
   const newCard = { petName: generateRandomCreatureCard(), type: "creature", id: cardIdRef.value++ };
   numCards.value++;
@@ -49,7 +47,8 @@ function generateRandomEquipmentCard() {
 <template>
   <div id="player-hand">
     <button @click="discardLastCard">Discard</button>
-    <button @click="drawEquipmentCard">Draw</button>
+    <button @click="drawCreatureCard">Draw Creature</button>
+    <button @click="drawEquipmentCard">Draw Equipment</button>
     <p>The player's hand contains {{ numCards }} cards.</p>
     <GameCard v-for="card in playerHand" :key="card.id" :pet-name="card.petName" :tool-name="card.toolName"
       :card-type="card.type" />
