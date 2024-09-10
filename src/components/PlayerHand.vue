@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import GameCard from './GameCard.vue';
 
 const numCards = ref(5);
-const cardIdRef = ref(6);
+const cardIdRef = ref(numCards.value + 1);
 
 const creatureCardNames = ["AppleBug", "Babysnakes", "Bananakeet", "Blobbyfish", "PippyChicken", "PocketBat", "SaladSlug", "Squiddy", "StinkMink", "TurtleBunny"];
 const equipmentCardNames = ["PetFood", "RockCandy", "YummyBones"];
@@ -16,39 +16,40 @@ const playerHand = ref([
   { petName: "TurtleBunny", type: "creature", id: 5 }
 ]);
 
-function drawCreatureCard() {
-  const newCard = { petName: generateRandomCreatureCard(), type: "creature", id: cardIdRef.value++ };
+function drawCard() {
+  const isCreatureCard = Math.random() >= 0.25;
+  const cardName = generateRandomCard(isCreatureCard);
+  const newCard = {};
+
+  if (isCreatureCard) {
+    newCard.petName = cardName;
+    newCard.type = "creature";
+  } else {
+    newCard.toolName = cardName;
+    newCard.type = "equipment";
+  }
+
+  newCard.id = cardIdRef.value++;
   numCards.value++;
   playerHand.value.push(newCard);
 }
 
-function drawEquipmentCard() {
-  const newCard = { toolName: generateRandomEquipmentCard(), type: "equipment", id: cardIdRef.value++ };
-  numCards.value++;
-  playerHand.value.push(newCard);
+function generateRandomCard(isCreatureCard) {
+  const cardList = isCreatureCard ? creatureCardNames : equipmentCardNames;
+  const randomIdx = Math.floor(Math.random() * cardList.length);
+  return cardList[randomIdx];
 }
 
 function discardLastCard() {
   numCards.value--;
   playerHand.value.pop();
 }
-
-function generateRandomCreatureCard() {
-  const randomIdx = Math.floor(Math.random() * creatureCardNames.length);
-  return creatureCardNames[randomIdx];
-}
-
-function generateRandomEquipmentCard() {
-  const randomIdx = Math.floor(Math.random() * equipmentCardNames.length);
-  return equipmentCardNames[randomIdx];
-}
 </script>
 
 <template>
   <div id="player-hand">
-    <button @click="discardLastCard">Discard</button>
-    <button @click="drawCreatureCard">Draw Creature</button>
-    <button @click="drawEquipmentCard">Draw Equipment</button>
+    <button @click="discardLastCard">Discard Last Card</button>
+    <button @click="drawCard">Draw Card</button>
     <p>The player's hand contains {{ numCards }} cards.</p>
     <GameCard v-for="card in playerHand" :key="card.id" :pet-name="card.petName" :tool-name="card.toolName"
       :card-type="card.type" />
