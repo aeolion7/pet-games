@@ -7,16 +7,16 @@ const cardIdRef = ref(0);
 const isHandPanelVisible = ref(true);
 
 const creatureCardList = [
-  { name: "AppleBug", power: 4, element: "Grass" },
+  { name: "Applebug", power: 4, element: "Grass" },
   { name: "Babysnakes", power: 3, element: "Rock" },
   { name: "Bananakeet", power: 4, element: "Air" },
   { name: "Blobbyfish", power: 3, element: "Water" },
-  { name: "PippyChicken", power: 2, element: "Air" },
-  { name: "PocketBat", power: 3, element: "Air" },
-  { name: "SaladSlug", power: 3, element: "Grass" },
+  { name: "Pippychicken", power: 2, element: "Air" },
+  { name: "Pocketbat", power: 3, element: "Air" },
+  { name: "Saladslug", power: 3, element: "Grass" },
   { name: "Squiddy", power: 4, element: "Water" },
-  { name: "StinkMink", power: 4, element: "Rock" },
-  { name: "TurtleBunny", power: 5, element: "Grass" }
+  { name: "Stinkmink", power: 4, element: "Rock" },
+  { name: "Turtlebunny", power: 5, element: "Grass" }
 ];
 
 const equipmentCardList = [
