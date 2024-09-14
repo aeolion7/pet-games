@@ -39,10 +39,6 @@ function generateRandomCard(isCreatureCard) {
   return cardList[randomIdx];
 }
 
-function discardLastCard() {
-  playerHand.value.pop();
-}
-
 function toggleHandPanel() {
   isHandPanelVisible.value = !isHandPanelVisible.value;
 }
@@ -57,10 +53,9 @@ function playCard(id) {
     <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :pet-name="card.petName"
       :tool-name="card.toolName" :card-type="card.type" />
   </div>
-  <button @click="discardLastCard">Discard Last Card</button>
-  <button @click="drawCard">Draw Card</button>
-  <button @click="toggleHandPanel">Hide Hand</button>
-  <button class="btn--show-hand" v-show="!isHandPanelVisible" @click="toggleHandPanel">Show Hand</button>
+  <button class="btn btn--draw" @click="drawCard">Draw Card</button>
+  <button class="btn btn--hide-hand" v-show="isHandPanelVisible" @click="toggleHandPanel">Hide Hand</button>
+  <button class="btn btn--show-hand" v-show="!isHandPanelVisible" @click="toggleHandPanel">Show Hand</button>
 </template>
 
 <style scoped>
@@ -69,19 +64,22 @@ function playCard(id) {
   text-align: center;
   width: inherit;
   bottom: 10px;
-  border-top: 2px solid white;
-  padding-top: 10px;
-  background-color: black;
 }
 
-button {
+.btn {
   border: 2px solid #fff;
   margin: 5px;
   padding: 5px;
+  position: absolute;
 }
 
+.btn--draw {
+  bottom: 50px;
+  left: 10px;
+}
+
+.btn--hide-hand,
 .btn--show-hand {
-  position: absolute;
   right: 10px;
   bottom: 10px;
 }
