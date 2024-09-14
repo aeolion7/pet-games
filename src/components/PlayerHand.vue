@@ -4,6 +4,7 @@ import GameCard from './GameCard.vue';
 
 const numCards = ref(5);
 const cardIdRef = ref(numCards.value + 1);
+const isHandPanelVisible = ref(true);
 
 const creatureCardNames = ["AppleBug", "Babysnakes", "Bananakeet", "Blobbyfish", "PippyChicken", "PocketBat", "SaladSlug", "Squiddy", "StinkMink", "TurtleBunny"];
 const equipmentCardNames = ["PetFood", "RockCandy", "YummyBones"];
@@ -44,16 +45,22 @@ function discardLastCard() {
   numCards.value--;
   playerHand.value.pop();
 }
+
+function toggleHandPanel() {
+  isHandPanelVisible.value = !isHandPanelVisible.value;
+}
 </script>
 
 <template>
-  <div id="player-hand">
+  <div id="player-hand" v-show="isHandPanelVisible">
     <button @click="discardLastCard">Discard Last Card</button>
     <button @click="drawCard">Draw Card</button>
+    <button @click="toggleHandPanel">Hide Hand</button>
     <p>The player's hand contains {{ numCards }} cards.</p>
     <GameCard v-for="card in playerHand" :key="card.id" :pet-name="card.petName" :tool-name="card.toolName"
       :card-type="card.type" />
   </div>
+  <button class="btn--show-hand" v-show="!isHandPanelVisible" @click="toggleHandPanel">Show Hand</button>
 </template>
 
 <style scoped>
@@ -62,11 +69,20 @@ function discardLastCard() {
   text-align: center;
   width: inherit;
   bottom: 10px;
+  border-top: 2px solid white;
+  padding-top: 10px;
+  background-color: black;
 }
 
 button {
   border: 2px solid #fff;
   margin: 5px;
   padding: 5px;
+}
+
+.btn--show-hand {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }
 </style>

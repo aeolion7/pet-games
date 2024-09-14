@@ -2,41 +2,57 @@
 import BoardTile from './BoardTile.vue';
 import { ref } from 'vue';
 
-const numTiles = ref(24);
+const numTiles = ref(5);
+const boardLayout = ref([]);
+const activeTileIdx = ref(0);
 
 const tileNames = ["BoulderHills", "CrystalCove", "MistyMountain", "PebbleBeach", "RoaringRapids", "RockslideValley", "SunnyMeadow", "WindyCliffs", "WistfulWoods"];
 
-const boardLayout = [{ tileName: "Start", id: "start-0" }];
-
-for (let idx = 1; idx < numTiles.value - 1; idx++) {
+for (let idx = 0; idx < numTiles.value; idx++) {
   const newTileName = tileNames[Math.floor(Math.random() * tileNames.length)];
-  boardLayout.push({ tileName: newTileName, id: `${newTileName}-${idx}` })
+  const tileObject = { tileName: newTileName, isFlipped: false };
+
+  tileObject.isActive = idx === 0 ? true : false;
+
+  boardLayout.value.push(tileObject);
 }
 
-boardLayout.push({ tileName: "End", id: "end-23" });
+function flipTile(tile) {
+  tile.isFlipped = !tile.isFlipped;
+}
+
+function advanceActiveTile() {
+  if (activeTileIdx.value + 1 === boardLayout.value.length) return;
+
+  boardLayout.value[activeTileIdx.value++].isActive = false;
+  boardLayout.value[activeTileIdx.value].isActive = true;
+}
 </script>
 
 <template>
   <div id="game-board">
-    <div id="grid">
-      <BoardTile v-for="tile in boardLayout" :key="tile.id" :tile-name="tile.tileName" />
-    </div>
+    <BoardTile v-for="(tile, index) in boardLayout" :key="index + tile.isFlipped" :tile-name="tile.tileName"
+      :is-flipped="tile.isFlipped" :is-active="tile.isActive" @click="flipTile(tile)" />
   </div>
+  <button class="btn--advance" @click="advanceActiveTile">Advance Tile</button>
 </template>
 
 <style>
 #game-board {
   display: flex;
+  align-items: center;
   justify-content: center;
   height: inherit;
   width: inherit;
 }
 
-#grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  height: 70vh;
-  width: 70vw;
+.btn--advance {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 1;
+  border: 2px solid #fff;
+  margin: 5px;
+  padding: 5px;
 }
 </style>
