@@ -1,6 +1,6 @@
 <script setup>
 import BoardTile from './BoardTile.vue';
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 
 const numTiles = ref(5);
 const boardLayout = ref([]);
@@ -34,7 +34,7 @@ function advanceActiveTile() {
     <BoardTile v-for="(tile, index) in boardLayout" :key="index + tile.isFlipped" :tile-name="tile.tileName"
       :is-flipped="tile.isFlipped" :is-active="tile.isActive" @click="flipTile(tile)" />
   </div>
-  <button @click="advanceActiveTile">Advance Tile</button>
+  <button class="btn--advance" @click="advanceActiveTile">Advance Tile</button>
 </template>
 
 <style>
@@ -44,5 +44,15 @@ function advanceActiveTile() {
   justify-content: center;
   height: inherit;
   width: inherit;
+}
+
+.btn--advance {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 1;
+  border: 2px solid #fff;
+  margin: 5px;
+  padding: 5px;
 }
 </style>

@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-
 const props = defineProps({
   tileName: String,
   isFlipped: Boolean,
@@ -15,7 +13,7 @@ function getTileImageUrl(tileName, isFlipped) {
   }
 }
 
-const imgUrl = ref(getTileImageUrl(props.tileName, props.isFlipped));
+const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
 </script>
 
 <template>
