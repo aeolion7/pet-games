@@ -2,7 +2,7 @@
 const props = defineProps({
   tileName: String,
   isFlipped: Boolean,
-  isActive: Boolean
+  isOpaque: Boolean
 });
 
 function getTileImageUrl(tileName, isFlipped) {
@@ -17,7 +17,7 @@ const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
 </script>
 
 <template>
-  <img class="tile" :class="props.isActive ? 'is-active' : ''" :src="imgUrl">
+  <img class="tile" :class="props.isOpaque ? 'is-opaque' : ''" :src="imgUrl">
 </template>
 
 <style>
@@ -34,7 +34,7 @@ const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
   position: relative;
 }
 
-.tile:not(.is-active) {
+.tile:not(.is-opaque) {
   opacity: 30%;
 }
 
