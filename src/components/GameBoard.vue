@@ -40,7 +40,7 @@ function advanceActiveTile() {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: inherit;
+  height: 80%;
   width: inherit;
 }
 
