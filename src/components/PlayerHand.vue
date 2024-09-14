@@ -2,39 +2,46 @@
 import { ref } from 'vue';
 import GameCard from './GameCard.vue';
 
-const cardIdRef = ref(6);
+const playerHand = ref([]);
+const cardIdRef = ref(0);
 const isHandPanelVisible = ref(true);
 
-const creatureCardNames = ["AppleBug", "Babysnakes", "Bananakeet", "Blobbyfish", "PippyChicken", "PocketBat", "SaladSlug", "Squiddy", "StinkMink", "TurtleBunny"];
-const equipmentCardNames = ["PetFood", "RockCandy", "YummyBones"];
+const creatureCardList = [
+  { name: "AppleBug", power: 4, element: "Grass" },
+  { name: "Babysnakes", power: 3, element: "Rock" },
+  { name: "Bananakeet", power: 4, element: "Air" },
+  { name: "Blobbyfish", power: 3, element: "Water" },
+  { name: "PippyChicken", power: 2, element: "Air" },
+  { name: "PocketBat", power: 3, element: "Air" },
+  { name: "SaladSlug", power: 3, element: "Grass" },
+  { name: "Squiddy", power: 4, element: "Water" },
+  { name: "StinkMink", power: 4, element: "Rock" },
+  { name: "TurtleBunny", power: 5, element: "Grass" }
+];
 
-const playerHand = ref([
-  { petName: "Bananakeet", type: "creature", id: 1 },
-  { petName: "Babysnakes", type: "creature", id: 2 },
-  { petName: "RockCandy", type: "equipment", id: 3 },
-  { petName: "PocketBat", type: "creature", id: 4 },
-  { petName: "TurtleBunny", type: "creature", id: 5 }
-]);
+const equipmentCardList = [
+  { name: "PetFood", effect: "Alter", value: 2 },
+  { name: "RockCandy", effect: "Alter", value: 2 },
+  { name: "YummyBones", effect: "Alter", value: 2 }
+];
 
 function drawCard() {
   const isCreatureCard = Math.random() >= 0.25;
-  const cardName = generateRandomCard(isCreatureCard);
+  const cardData = generateRandomCard(isCreatureCard);
   const newCard = {};
 
-  if (isCreatureCard) {
-    newCard.petName = cardName;
-    newCard.type = "creature";
-  } else {
-    newCard.toolName = cardName;
-    newCard.type = "equipment";
-  }
-
+  Object.assign(newCard, cardData);
+  newCard.type = isCreatureCard ? "creature" : "equipment";
   newCard.id = cardIdRef.value++;
   playerHand.value.push(newCard);
 }
 
+for (let idx = 0; idx < 5; idx++) {
+  drawCard();
+}
+
 function generateRandomCard(isCreatureCard) {
-  const cardList = isCreatureCard ? creatureCardNames : equipmentCardNames;
+  const cardList = isCreatureCard ? creatureCardList : equipmentCardList;
   const randomIdx = Math.floor(Math.random() * cardList.length);
   return cardList[randomIdx];
 }
@@ -50,8 +57,8 @@ function playCard(id) {
 
 <template>
   <div id="player-hand" v-show="isHandPanelVisible">
-    <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :pet-name="card.petName"
-      :tool-name="card.toolName" :card-type="card.type" />
+    <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :name="card.name"
+      :card-type="card.type" />
   </div>
   <button class="btn btn--draw" @click="drawCard">Draw Card</button>
   <button class="btn btn--hide-hand" v-show="isHandPanelVisible" @click="toggleHandPanel">Hide Hand</button>

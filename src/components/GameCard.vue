@@ -1,12 +1,8 @@
 <script setup>
 const props = defineProps({
-  petName: {
-    default: "Bananakeet",
-    type: String
-  },
-  toolName: {
-    default: "RockCandy",
-    type: String
+  name: {
+    type: String,
+    required: true
   },
   cardType: {
     type: String,
@@ -14,15 +10,15 @@ const props = defineProps({
   }
 });
 
-function getCreatureImageUrl(petName) {
-  return require('../assets/cards/creatures/' + petName + '.jpg');
+function getCreatureImageUrl(name) {
+  return require('../assets/cards/creatures/' + name + '.jpg');
 }
 
-function getEquipmentImageUrl(toolName) {
-  return require('../assets/cards/equipment/' + toolName + '.jpg');
+function getEquipmentImageUrl(name) {
+  return require('../assets/cards/equipment/' + name + '.jpg');
 }
 
-const imgUrl = props.cardType === "creature" ? getCreatureImageUrl(props.petName) : getEquipmentImageUrl(props.toolName);
+const imgUrl = props.cardType === "creature" ? getCreatureImageUrl(props.name) : getEquipmentImageUrl(props.name);
 </script>
 
 <template>
