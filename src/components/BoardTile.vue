@@ -22,8 +22,8 @@ const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
 
 <style>
 :root {
-  --tile-width: 20vw;
-  --tile-height: 30vh;
+  --tile-width: 24vw;
+  --tile-height: 32vh;
   --horizontal-tile-offset: calc(var(--tile-width) / 4);
   --vertical-tile-offset: calc(var(--tile-height) / 2);
 }
