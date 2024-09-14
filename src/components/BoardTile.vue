@@ -1,13 +1,20 @@
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
-  tileName: String
+  tileName: String,
+  isFlipped: Boolean
 });
 
-function getTileImageUrl(tileName) {
-  return require('../assets/tiles/' + tileName + '.png');
+function getTileImageUrl(tileName, isFlipped) {
+  if (isFlipped) {
+    return require('../assets/tiles/reverse/' + tileName + '.png');
+  } else {
+    return require('../assets/tiles/' + tileName + '.png');
+  }
 }
 
-const imgUrl = getTileImageUrl(props.tileName);
+const imgUrl = ref(getTileImageUrl(props.tileName, props.isFlipped));
 </script>
 
 <template>

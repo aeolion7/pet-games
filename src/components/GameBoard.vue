@@ -1,22 +1,26 @@
 <script setup>
 import BoardTile from './BoardTile.vue';
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 
 const numTiles = ref(5);
+const boardLayout = ref([]);
 
 const tileNames = ["BoulderHills", "CrystalCove", "MistyMountain", "PebbleBeach", "RoaringRapids", "RockslideValley", "SunnyMeadow", "WindyCliffs", "WistfulWoods"];
 
-const boardLayout = [];
-
 for (let idx = 0; idx < numTiles.value; idx++) {
   const newTileName = tileNames[Math.floor(Math.random() * tileNames.length)];
-  boardLayout.push({ tileName: newTileName, id: `${newTileName}-${idx}` })
+  boardLayout.value.push({ tileName: newTileName, id: `${newTileName}-${idx}`, isFlipped: false });
+}
+
+function flipTile(tile) {
+  tile.isFlipped = !tile.isFlipped;
 }
 </script>
 
 <template>
   <div id="game-board">
-    <BoardTile v-for="tile in boardLayout" :key="tile.id" :tile-name="tile.tileName" />
+    <BoardTile v-for="tile in boardLayout" :key="tile.id + tile.isFlipped" :tile-name="tile.tileName"
+      :is-flipped="tile.isFlipped" @click="flipTile(tile)" />
   </div>
 </template>
 
