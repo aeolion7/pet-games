@@ -3,7 +3,8 @@ import { ref } from 'vue';
 
 const props = defineProps({
   tileName: String,
-  isFlipped: Boolean
+  isFlipped: Boolean,
+  isActive: Boolean
 });
 
 function getTileImageUrl(tileName, isFlipped) {
@@ -18,7 +19,7 @@ const imgUrl = ref(getTileImageUrl(props.tileName, props.isFlipped));
 </script>
 
 <template>
-  <img class="tile" :src="imgUrl">
+  <img class="tile" :class="props.isActive ? 'is-active' : ''" :src="imgUrl">
 </template>
 
 <style>
@@ -33,6 +34,10 @@ const imgUrl = ref(getTileImageUrl(props.tileName, props.isFlipped));
   width: var(--tile-width);
   height: var(--tile-height);
   position: relative;
+}
+
+.tile:not(.is-active) {
+  opacity: 30%;
 }
 
 .tile:nth-child(1) {
