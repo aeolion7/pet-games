@@ -10,15 +10,9 @@ const props = defineProps({
   }
 });
 
-function getCreatureImageUrl(name) {
-  return require('../assets/cards/creatures/' + name + '.jpg');
-}
-
-function getEquipmentImageUrl(name) {
-  return require('../assets/cards/equipment/' + name + '.jpg');
-}
-
-const imgUrl = props.cardType === "creature" ? getCreatureImageUrl(props.name) : getEquipmentImageUrl(props.name);
+const imgUrl = props.cardType === "creature"
+  ? require('../assets/cards/creatures/' + props.name + '.jpg')
+  : require('../assets/cards/equipment/' + props.name + '.jpg');
 </script>
 
 <template>
