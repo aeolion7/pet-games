@@ -2,8 +2,7 @@
 import { ref } from 'vue';
 import GameCard from './GameCard.vue';
 
-const numCards = ref(5);
-const cardIdRef = ref(numCards.value + 1);
+const cardIdRef = ref(6);
 const isHandPanelVisible = ref(true);
 
 const creatureCardNames = ["AppleBug", "Babysnakes", "Bananakeet", "Blobbyfish", "PippyChicken", "PocketBat", "SaladSlug", "Squiddy", "StinkMink", "TurtleBunny"];
@@ -31,7 +30,6 @@ function drawCard() {
   }
 
   newCard.id = cardIdRef.value++;
-  numCards.value++;
   playerHand.value.push(newCard);
 }
 
@@ -42,24 +40,26 @@ function generateRandomCard(isCreatureCard) {
 }
 
 function discardLastCard() {
-  numCards.value--;
   playerHand.value.pop();
 }
 
 function toggleHandPanel() {
   isHandPanelVisible.value = !isHandPanelVisible.value;
 }
+
+function playCard(id) {
+  playerHand.value = playerHand.value.filter(card => card.id !== id);
+}
 </script>
 
 <template>
   <div id="player-hand" v-show="isHandPanelVisible">
-    <button @click="discardLastCard">Discard Last Card</button>
-    <button @click="drawCard">Draw Card</button>
-    <button @click="toggleHandPanel">Hide Hand</button>
-    <p>The player's hand contains {{ numCards }} cards.</p>
-    <GameCard v-for="card in playerHand" :key="card.id" :pet-name="card.petName" :tool-name="card.toolName"
-      :card-type="card.type" />
+    <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :pet-name="card.petName"
+      :tool-name="card.toolName" :card-type="card.type" />
   </div>
+  <button @click="discardLastCard">Discard Last Card</button>
+  <button @click="drawCard">Draw Card</button>
+  <button @click="toggleHandPanel">Hide Hand</button>
   <button class="btn--show-hand" v-show="!isHandPanelVisible" @click="toggleHandPanel">Show Hand</button>
 </template>
 
