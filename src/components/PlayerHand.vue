@@ -58,7 +58,7 @@ function playCard(id) {
 <template>
   <div id="player-hand" v-show="isHandPanelVisible">
     <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :name="card.name"
-      :card-type="card.type" />
+      :card-type="card.type" :power="card.power" />
   </div>
   <button class="btn btn--draw" @click="drawCard">Draw Card</button>
   <button class="btn btn--hide-hand" v-show="isHandPanelVisible" @click="toggleHandPanel">Hide Hand</button>
@@ -68,9 +68,11 @@ function playCard(id) {
 <style scoped>
 #player-hand {
   position: absolute;
-  text-align: center;
   width: inherit;
   bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .btn {
