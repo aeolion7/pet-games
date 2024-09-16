@@ -5,6 +5,21 @@ const props = defineProps({
   isOpaque: Boolean
 });
 
+const monsters = [
+  { name: "Fogwing Wyvern", element: "Air", power: 4, terrainType: "MistyMountain" },
+  { name: "Diving Sky Dancer", element: "Air", power: 3, terrainType: "CloudyPass" },
+  { name: "Rock Roc Bird", element: "Air / Rock", power: 6, terrainType: "WindyCliffs" },
+  { name: "Hungry Goat", element: "Grass", power: 5, terrainType: "SunnyMeadow" },
+  { name: "Bramblebeast", element: "Grass", power: 6, terrainType: "WistfulWoods" },
+  { name: "Clawsome Crab", element: "Rock / Water", power: 4, terrainType: "PebbleBeach" },
+  { name: "Rocky Golem", element: "Rock", power: 5, terrainType: "RockslideValley" },
+  { name: "Stony Armadillo", element: "Rock", power: 4, terrainType: "BoulderHills" },
+  { name: "Cliff Hawk", element: "Grass / Air", power: 7, terrainType: "NarrowCanyon" },
+  { name: "Raging Crocodile", element: "Water", power: 8, terrainType: "RoaringRapids" },
+  { name: "Algae Enforcer", element: "Water", power: 6, terrainType: "CrystalCove" },
+  { name: "Giant Toad", element: "Water / Grass", power: 5, terrainType: "QuicksandBog" }
+];
+
 function getTileImageUrl(tileName, isFlipped) {
   if (isFlipped) {
     return require('../assets/tiles/reverse/' + tileName + '.png');
@@ -13,11 +28,17 @@ function getTileImageUrl(tileName, isFlipped) {
   }
 }
 
+function showMonsterName() {
+  if (props.isFlipped) return;
+  const monsterName = monsters.find(monster => monster.terrainType === props.tileName).name;
+  alert(monsterName);
+}
+
 const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
 </script>
 
 <template>
-  <img class="tile" :class="props.isOpaque ? 'is-opaque' : ''" :src="imgUrl">
+  <img class="tile" @click="showMonsterName" :class="props.isOpaque ? 'is-opaque' : ''" :src="imgUrl">
 </template>
 
 <style>
@@ -26,6 +47,11 @@ const imgUrl = getTileImageUrl(props.tileName, props.isFlipped);
   --tile-height: 32vh;
   --horizontal-tile-offset: calc(var(--tile-width) / 4);
   --vertical-tile-offset: calc(var(--tile-height) / 2);
+}
+
+.test {
+  position: fixed;
+  color: red;
 }
 
 .tile {
