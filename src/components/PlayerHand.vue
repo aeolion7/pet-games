@@ -1,10 +1,16 @@
 <script setup>
 import { ref } from 'vue';
 import GameCard from './GameCard.vue';
+import { usePlayerStore } from '@/stores/player';
+import { storeToRefs } from 'pinia';
 
-const playerHand = ref([]);
+const playerStore = usePlayerStore();
+const { hand } = storeToRefs(playerStore);
+
 const cardIdRef = ref(0);
 const isHandPanelVisible = ref(true);
+
+const startingHandSize = 5;
 
 const creatureCardList = [
   { name: "Applebug", power: 4, element: "Grass" },
@@ -33,10 +39,10 @@ function drawCard() {
   Object.assign(newCard, cardData);
   newCard.type = isCreatureCard ? "creature" : "equipment";
   newCard.id = cardIdRef.value++;
-  playerHand.value.push(newCard);
+  hand.value.push(newCard);
 }
 
-for (let idx = 0; idx < 5; idx++) {
+for (let idx = 0; idx < startingHandSize; idx++) {
   drawCard();
 }
 
@@ -51,14 +57,14 @@ function toggleHandPanel() {
 }
 
 function playCard(id) {
-  playerHand.value = playerHand.value.filter(card => card.id !== id);
+  hand.value = hand.value.filter(card => card.id !== id);
 }
 </script>
 
 <template>
   <div id="player-hand" v-show="isHandPanelVisible">
-    <GameCard v-for="card in playerHand" :key="card.id" @click="playCard(card.id)" :name="card.name"
-      :card-type="card.type" :power="card.power" />
+    <GameCard v-for="card in hand" :key="card.id" @click="playCard(card.id)" :name="card.name" :card-type="card.type"
+      :power="card.power" />
   </div>
   <button class="btn btn--draw" @click="drawCard">Draw Card</button>
   <button class="btn btn--hide-hand" v-show="isHandPanelVisible" @click="toggleHandPanel">Hide Hand</button>
